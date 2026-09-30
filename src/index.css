@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "Roboto", Helvetica, sans-serif;
+  background-attachment: fixed;
+  color: aliceblue;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.glassmorphism {
+  background: rgb(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(0, 0, 0, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 1s ease;
+}
+
+.glassmorphism:hover {
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.glassmorphism::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+.glassmorphism::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+.main__weather-img-container {
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  top: 0;
+  display: flex;
+  overflow: hidden;
+  align-items: flex-start;
+  transition: all 1s ease;
+  border: none;
+  outline: none;
+}
+
+.main__weather-img {
+  height: 100%;
+  flex-shrink: 0;
+  border: none;
+}
+
+.update-message {
+  font-size: 0.8rem;
+  left: 50%;
+  translate: -50%;
+  position: absolute;
+  top: 0;
+}
+
+.main__city-h1 {
+  width: fit-content;
+  margin: 4rem auto 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 350;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: white;
+}
+
+.main__weather {
+  margin: 0 auto 1.5rem;
+  width: 95%;
+  min-width: 150px;
+  padding: 1em;
+  text-transform: capitalize;
+}
+
+.weather__temp-p {
+  font-size: 2.4rem;
+  font-weight: 200;
+}
+
+.weather__description-p {
+  font-weight: 300;
+}
+
+.weather__minmax-temp-p {
+  padding: 0.2em 0;
+}
+
+.main__weather-metrics {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-content: center;
+}
+
+.main__weather-metrics div {
+  padding: 1em;
+  width: clamp(150px, 45%, 200px);
+  height: 150px;
+  flex-shrink: 0.5;
+}
+
+.metrics__h2 {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 1em;
+}
+
+@keyframes animeOnScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    translate: -20% 0;
+    scale: 3 3;
+  }
+  100% {
+    translate: -20% 0;
+    scale: 1 1;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .weather-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 auto;
+  }
+  .main__weather {
+    flex-grow: 1;
+  }
+  .main__weather-metrics {
+    justify-content: flex-end;
+    flex-grow: 2;
+  }
+  .main__city-h1 {
+    margin: 3rem auto 2rem;
+  }
+}
+
+/* @media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(to top, hsl(278, 37%, 28%), hsl(0, 0%, 11%));
+  }
+  .main__city-h1 {
+    color: rgb(255, 204, 137);
+    font-weight: 300;
+  }
+  .glassmorphism {
+    background: rgba(255, 55, 55, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.25);
+    box-shadow:
+      0 8px 32px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 0 20px 10px rgba(255, 0, 0, 0.15);
+  }
+  .glassmorphism:hover {
+    background: rgba(255, 55, 55, 0.05);
+  }
+}
+ */
