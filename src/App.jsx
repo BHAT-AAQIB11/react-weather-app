@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import MainWeather from "./components/MainWeather";
 import WeatherMetrics from "./components/WeatherMetrics";
 import WeatherImage from "./components/WeatherImage";
+import UpdatingStatus from "./components/UpdatingStatus";
 
 export default function App() {
   const [weather, setWeather] = useState(
-    "" || JSON.parse(localStorage.getItem("weather-data")),
+    JSON.parse(localStorage.getItem("weather-data")),
   );
   const [updating, setUpdating] = useState(false);
+  const [error, setError] = useState({ state: false, message: "" });
 
   function UTCToLocal(utc) {
     const date = new Date(utc * 1000);
@@ -42,6 +44,12 @@ export default function App() {
     return (kelvin - 273.15).toFixed();
   }
 
+  function locationDenial(error) {
+    setError({ state: true, message: "Allow location access to proceed" });
+    setUpdating(false);
+    console.error(error);
+  }
+
   async function findPosition(position) {
     const { latitude, longitude } = position.coords;
     const key = import.meta.env.VITE_OPENWEATHER_KEY;
@@ -66,31 +74,40 @@ export default function App() {
       setWeather(data);
     } catch (error) {
       console.error("Network Error", error.message);
+      setError({ state: true, message: "Network Error" });
     } finally {
       setUpdating(false);
     }
   }
 
+  function handleReload() {
+    window.location.reload();
+  }
+
   useEffect(() => {
     setUpdating(true);
-    navigator.geolocation.getCurrentPosition((position) =>
-      findPosition(position),
+    navigator.geolocation.getCurrentPosition(
+      (position) => findPosition(position),
+      () => {
+        locationDenial(error);
+      },
     );
   }, []);
 
-  if (!weather) {
+  if (error.state) {
     return (
-      <div
-        style={{
-          background: "black",
-          color: "white",
-          textAlign: "center",
-          width: "100vw",
-          height: "100vh",
-          margin: "o auto",
-        }}
-      >
-        Fetching Data...
+      <div className="error-screen">
+        <p className="error__reason">{error.message}</p>
+        <button onClick={handleReload} className="error__reload" type="button">
+          Try again
+        </button>
+      </div>
+    );
+  }
+  if (!error.state && !weather) {
+    return (
+      <div className="loading-screen">
+        <p className="loading__text">Fetching...</p>
       </div>
     );
   }
@@ -98,7 +115,6 @@ export default function App() {
   return (
     <>
       <WeatherImage weatherId={weather?.weather[0].id} />
-      {updating && <p className="update-message">Updating...</p>}
       <main className="main">
         <h2 className="main__city-h1">{weather?.name || "loading"}</h2>
         <div className="weather-container">
@@ -107,7 +123,9 @@ export default function App() {
             mainWeather={weather?.weather[0].description}
             minTemp={toCelsius(weather?.main.temp_min)}
             maxTemp={toCelsius(weather?.main.temp_max)}
-          />
+          >
+            <UpdatingStatus updating={updating} />
+          </MainWeather>
           <WeatherMetrics
             humidity={weather?.main.humidity}
             pressure={weather?.main.pressure}
