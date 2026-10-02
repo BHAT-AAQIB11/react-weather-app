@@ -32,24 +32,30 @@ img {
 }
 
 .glassmorphism {
-  background: rgb(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 149, 255, 0.2),
+    rgba(255, 0, 0, 0.3)
+  );
+  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(0, 0, 0, 0.2),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-    inset 0 0 0 3px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  transition: all 1s ease;
+  box-shadow:
+    0 8px 32px rgba(255, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 0, 0, 0.2),
+    inset 0 -1px 0 rgba(255, 0, 0, 0.1),
+    inset 0 0 0 2px rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.5);
 }
 
 .glassmorphism:hover {
-  transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.2);
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 149, 255, 0.5),
+    rgba(255, 0, 0, 0.5)
+  );
 }
 
 .glassmorphism::before {
@@ -146,13 +152,12 @@ img {
   border: none;
 }
 
-
 .main__city-h1 {
   width: fit-content;
   margin: 4rem auto 2rem;
   text-align: center;
   font-size: 2rem;
-  font-weight: 350;
+  font-weight: 300;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: white;
 }
@@ -246,26 +251,3 @@ img {
     margin: 3rem auto 2rem;
   }
 }
-
-/* @media (prefers-color-scheme: dark) {
-  body {
-    background: linear-gradient(to top, hsl(278, 37%, 28%), hsl(0, 0%, 11%));
-  }
-  .main__city-h1 {
-    color: rgb(255, 204, 137);
-    font-weight: 300;
-  }
-  .glassmorphism {
-    background: rgba(255, 55, 55, 0.2);
-    border: 1px solid rgba(255, 0, 0, 0.25);
-    box-shadow:
-      0 8px 32px rgba(255, 255, 255, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-      inset 0 0 20px 10px rgba(255, 0, 0, 0.15);
-  }
-  .glassmorphism:hover {
-    background: rgba(255, 55, 55, 0.05);
-  }
-}
- */
