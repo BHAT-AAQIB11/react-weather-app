@@ -17,10 +17,7 @@ body {
 
 body {
   width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  height: 100vh;
   font-family: "Roboto", Helvetica, sans-serif;
   background-attachment: fixed;
   color: aliceblue;
@@ -31,31 +28,32 @@ img {
   width: 100%;
 }
 
+.main {
+  padding-top: 4rem;
+}
+
 .glassmorphism {
   background: linear-gradient(
     -45deg,
-    rgba(0, 149, 255, 0.2),
-    rgba(255, 0, 0, 0.3)
+    rgba(0, 149, 255, 0.5),
+    rgba(255, 0, 0, 0.5)
   );
+  filter: contrast(120%);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   position: relative;
   overflow: hidden;
   box-shadow:
-    0 8px 32px rgba(255, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 0, 0, 0.2),
-    inset 0 -1px 0 rgba(255, 0, 0, 0.1),
-    inset 0 0 0 2px rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.5);
+    0 8px 32px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .glassmorphism:hover {
-  background: linear-gradient(
-    -45deg,
-    rgba(0, 149, 255, 0.5),
-    rgba(255, 0, 0, 0.5)
-  );
+  filter: hue-rotate(20deg) saturate(150%);
 }
 
 .glassmorphism::before {
@@ -154,20 +152,22 @@ img {
 
 .main__city-h1 {
   width: fit-content;
-  margin: 4rem auto 2rem;
+  margin: 0 auto 2rem;
   text-align: center;
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: 250;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: white;
 }
 
+.weather-container {
+  margin: 0 auto;
+  width: 95%;
+}
+
 .main__weather {
   margin: 0 auto 1.5rem;
-  width: 95%;
-  min-width: 150px;
   padding: 1em;
-  text-transform: capitalize;
 }
 
 .weather__temp-p {
@@ -182,6 +182,7 @@ img {
 
 .weather__description-p {
   font-weight: 300;
+  text-transform: capitalize;
 }
 
 .weather__minmax-temp-p {
@@ -189,20 +190,21 @@ img {
 }
 
 .main__weather-metrics {
-  width: 95%;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 170px));
   justify-content: center;
-  align-content: center;
+  align-content: safe center;
+  justify-items: center;
+  align-items: safe center;
+  gap: 10px;
 }
 
 .main__weather-metrics div {
+  aspect-ratio: 1;
   padding: 1em;
-  width: clamp(150px, 45%, 200px);
-  height: 150px;
-  flex-shrink: 0.5;
+  width: 100%;
 }
 
 .metrics__h2 {
@@ -232,20 +234,43 @@ img {
 }
 
 @media screen and (min-width: 700px) {
+  body {
+    overflow: hidden;
+  }
+  .main {
+    height: 80vh;
+    padding-top: 2rem;
+  }
   .weather-container {
     padding: 1rem;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 30px;
     margin: 0 auto;
+    height: 100%;
+  }
+  .main__city-h1 {
+    font-size: 2.4rem;
   }
   .main__weather {
     flex-grow: 1;
+    font-size: 1.6rem;
+  }
+  .weather__temp-p {
+    font-size: 3.5rem;
   }
   .main__weather-metrics {
-    justify-content: flex-end;
-    flex-grow: 2;
+    height: 100%;
+    grid-auto-rows: max-content;
+    overflow: scroll;
+    -webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .main__weather-metrics div {
+    font-size: 1.1rem;
   }
   .main__city-h1 {
     margin: 3rem auto 2rem;

@@ -5,35 +5,9 @@ import WeatherImage from "./components/WeatherImage";
 import UpdatingStatus from "./components/UpdatingStatus";
 
 export default function App() {
-  const [weather, setWeather] = useState({
-    coord: { lon: 74.8204, lat: 34.0747 },
-    weather: [
-      { id: 800, main: "Clear", description: "clear sky", icon: "01n" },
-    ],
-    base: "stations",
-    main: {
-      temp: 293.26,
-      feels_like: 292.61,
-      temp_min: 293.26,
-      temp_max: 293.26,
-      pressure: 1016,
-      humidity: 49,
-      sea_level: 1016,
-      grnd_level: 835,
-    },
-    visibility: 10000,
-    wind: { speed: 1.17, deg: 31, gust: 1.83 },
-    clouds: { all: 8 },
-    dt: 1790948984,
-    sys: { country: "IN", sunrise: 1790902528, sunset: 1790945085 },
-    timezone: 19800,
-    id: 1255634,
-    name: "Srinagar",
-    cod: 200,
-  });
-  /* useState(
+  const [weather, setWeather] = useState(
     JSON.parse(localStorage.getItem("weather-data")),
-  ); */
+  );
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState({ state: false, message: "" });
 
@@ -110,7 +84,7 @@ export default function App() {
     window.location.reload();
   }
 
-  /* useEffect(() => {
+  useEffect(() => {
     setUpdating(true);
     navigator.geolocation.getCurrentPosition(
       (position) => findPosition(position),
@@ -118,7 +92,7 @@ export default function App() {
         locationDenial(error);
       },
     );
-  }, []); */
+  }, []);
 
   if (error.state) {
     return (
@@ -142,7 +116,7 @@ export default function App() {
     <>
       <WeatherImage weatherId={weather?.weather[0].id} />
       <main className="main">
-        <h2 className="main__city-h1">{weather?.name || "loading"}</h2>
+        <h2 className="main__city-h1">{weather?.name}</h2>
         <div className="weather-container">
           <MainWeather
             mainTemp={toCelsius(weather?.main.temp)}

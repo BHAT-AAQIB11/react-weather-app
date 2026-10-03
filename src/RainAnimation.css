@@ -5,14 +5,14 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: transparent; /* Moody, dark background color */
-  pointer-events: none; /* Allows clicks to pass through to elements underneath */
+  background: transparent;
+  pointer-events: none;
 }
 
 .raindrop {
   position: absolute;
   width: 1.5px;
-  background: linear-gradient(transparent, #ffffff); /* Tapered drop effect */
+  background: linear-gradient(transparent, #ffffff);
   animation: fall linear infinite;
 }
 
@@ -21,6 +21,6 @@
     transform: translateY(0vh);
   }
   100% {
-    transform: translateY(110vh); /* Falls entirely past the bottom edge */
+    transform: translateY(110vh);
   }
 }
