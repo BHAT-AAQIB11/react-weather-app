@@ -28,6 +28,10 @@ img {
   width: 100%;
 }
 
+svg {
+  display: block;
+}
+
 .main {
   padding-top: 4rem;
 }
@@ -191,6 +195,7 @@ img {
 
 .main__weather-metrics {
   margin: 0 auto;
+  padding-bottom: 2rem;
   width: fit-content;
   display: grid;
   grid-template-columns: repeat(2, minmax(120px, 170px));
@@ -211,6 +216,60 @@ img {
   font-weight: 400;
   font-size: 1rem;
   margin-bottom: 1em;
+}
+
+.footer {
+  width: 50vw;
+  margin-bottom: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  max-width: 200px;
+  opacity: 0.4;
+  filter: grayscale(50%);
+  transition: all 0.3s ease-in;
+}
+
+.footer:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+.footer__nav {
+  padding: 5px 1em;
+}
+
+.nav__ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.nav__ul li {
+  width: 2.2rem;
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.nav__ul li:hover {
+  background-color: black;
+}
+
+.nav__ul li a {
+  align-self: center;
+}
+
+.nav__logo {
+  width: 65%;
+  color: black;
+  margin: 0 auto;
+}
+
+:is(.nav__ul li:hover) .nav__logo {
+  color: white;
 }
 
 @keyframes animeOnScroll {
@@ -274,5 +333,8 @@ img {
   }
   .main__city-h1 {
     margin: 3rem auto 2rem;
+  }
+  .footer {
+    max-width: 170px;
   }
 }

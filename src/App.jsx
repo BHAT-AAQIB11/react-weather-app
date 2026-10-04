@@ -3,10 +3,10 @@ import MainWeather from "./components/MainWeather";
 import WeatherMetrics from "./components/WeatherMetrics";
 import WeatherImage from "./components/WeatherImage";
 import UpdatingStatus from "./components/UpdatingStatus";
+import Footer from "./components/Footer";
 
 export default function App() {
-  const [weather, setWeather] = useState(
-    JSON.parse(localStorage.getItem("weather-data")),
+  const [weather, setWeather] = useState(JSON.parse(localStorage.getItem("weather-data")),
   );
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState({ state: false, message: "" });
@@ -46,7 +46,6 @@ export default function App() {
 
   function locationDenial(error) {
     setError({ state: true, message: "Allow location access to proceed" });
-    setUpdating(false);
     console.error(error);
   }
 
@@ -84,7 +83,7 @@ export default function App() {
     window.location.reload();
   }
 
-  useEffect(() => {
+   useEffect(() => {
     setUpdating(true);
     navigator.geolocation.getCurrentPosition(
       (position) => findPosition(position),
@@ -137,6 +136,7 @@ export default function App() {
           />
         </div>
       </main>
+      <Footer />
     </>
   );
 }
