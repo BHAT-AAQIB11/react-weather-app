@@ -4,49 +4,31 @@ import WeatherMetrics from "./components/WeatherMetrics";
 import WeatherImage from "./components/WeatherImage";
 import UpdatingStatus from "./components/UpdatingStatus";
 import Footer from "./components/Footer";
+import { temperatureUnits, handleStoredUnits } from "./units";
 
 export default function App() {
-  const [weather, setWeather] = useState(JSON.parse(localStorage.getItem("weather-data")),
+  const [weather, setWeather] = useState(
+    JSON.parse(localStorage.getItem("weather-data")),
   );
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState({ state: false, message: "" });
-
-  function UTCToLocal(utc) {
-    const date = new Date(utc * 1000);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    return hours + ":" + minutes;
-  }
-
-  function windDirection(deg) {
-    const directions = [
-      "N",
-      "NNE",
-      "NE",
-      "ENE",
-      "E",
-      "ESE",
-      "SE",
-      "SSE",
-      "S",
-      "SSW",
-      "SW",
-      "WSW",
-      "W",
-      "WNW",
-      "NW",
-      "NNW",
-    ];
-    return directions[Math.round(deg / 22.5) % 16];
-  }
-
-  function toCelsius(kelvin) {
-    return (kelvin - 273.15).toFixed();
-  }
+  const [tempUnitIndex, setTempUnitIndex] = useState(
+    JSON.parse(localStorage.getItem("metric-units"))?.tempUnit || 0,
+  );
 
   function locationDenial(error) {
     setError({ state: true, message: "Allow location access to proceed" });
     console.error(error);
+  }
+
+  function handleUnitChangeClick() {
+    if (tempUnitIndex >= temperatureUnits.length - 1) {
+      handleStoredUnits("tempUnit", 0);
+      setTempUnitIndex(0);
+      return;
+    }
+    handleStoredUnits("tempUnit", tempUnitIndex + 1);
+    setTempUnitIndex(tempUnitIndex + 1);
   }
 
   async function findPosition(position) {
@@ -83,7 +65,7 @@ export default function App() {
     window.location.reload();
   }
 
-   useEffect(() => {
+  useEffect(() => {
     setUpdating(true);
     navigator.geolocation.getCurrentPosition(
       (position) => findPosition(position),
@@ -118,20 +100,24 @@ export default function App() {
         <h2 className="main__city-h1">{weather?.name}</h2>
         <div className="weather-container">
           <MainWeather
-            mainTemp={toCelsius(weather?.main.temp)}
+            handleUnitChangeClick={handleUnitChangeClick}
+            mainTemp={temperatureUnits[tempUnitIndex](weather?.main.temp)}
             mainWeather={weather?.weather[0].description}
-            minTemp={toCelsius(weather?.main.temp_min)}
-            maxTemp={toCelsius(weather?.main.temp_max)}
+            minTemp={temperatureUnits[tempUnitIndex](weather?.main.temp_min)}
+            maxTemp={temperatureUnits[tempUnitIndex](weather?.main.temp_max)}
           >
             <UpdatingStatus updating={updating} />
           </MainWeather>
           <WeatherMetrics
+            handleUnitChangeClick={handleUnitChangeClick}
             humidity={weather?.main.humidity}
             pressure={weather?.main.pressure}
             visibility={weather?.visibility}
-            sunset={UTCToLocal(weather?.sys.sunset)}
-            feelsLike={toCelsius(weather?.main.feels_like)}
-            windDir={windDirection(weather?.wind.deg)}
+            sunset={weather?.sys.sunset}
+            feelsLike={temperatureUnits[tempUnitIndex](
+              weather?.main.feels_like,
+            )}
+            windDir={weather?.wind.deg}
             windSpeed={weather?.wind.speed}
           />
         </div>

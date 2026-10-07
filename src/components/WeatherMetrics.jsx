@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { handleStoredUnits, pressureUnits, speedUnits } from "../units";
 
 export default function WeatherMetrics({
   humidity,
@@ -8,8 +9,59 @@ export default function WeatherMetrics({
   feelsLike,
   windDir,
   windSpeed,
+  handleUnitChangeClick,
 }) {
+  const [pressureUnitIndex, setPressureUnitIndex] = useState(
+    JSON.parse(localStorage.getItem("metric-units"))?.pressureUnit || 0,
+  );
+
+  const [speedUnitIndex, setSpeedUnitIndex] = useState(
+    JSON.parse(localStorage.getItem("metric-units"))?.speedUnit || 0,
+  );
   const containerRef = useRef(null);
+
+  function UTCToLocal(utc) {
+    const date = new Date(utc * 1000);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    let returnMinutes = minutes;
+    if (minutes.toString().length === 1) {
+      returnMinutes = `0${minutes}`;
+    }
+    return hours + ":" + returnMinutes;
+  }
+
+  function windDirection(deg) {
+    const directions = [
+      "N",
+      "NNE",
+      "NE",
+      "ENE",
+      "E",
+      "ESE",
+      "SE",
+      "SSE",
+      "S",
+      "SSW",
+      "SW",
+      "WSW",
+      "W",
+      "WNW",
+      "NW",
+      "NNW",
+    ];
+    return directions[Math.round(deg / 22.5) % 16];
+  }
+  function handleClick(arr, setIndexFn, index, unitName) {
+    if (index >= arr.length - 1) {
+      handleStoredUnits(unitName, 0);
+      setIndexFn(0);
+      return;
+    }
+    handleStoredUnits(unitName, index + 1);
+    setIndexFn(index + 1);
+  }
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -33,7 +85,6 @@ export default function WeatherMetrics({
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
-    // Cleanup listeners when component unmounts
     return () => {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("touchstart", handleTouchStart);
@@ -42,29 +93,80 @@ export default function WeatherMetrics({
   }, []);
   return (
     <section ref={containerRef} className="main__weather-metrics">
-      <div className="metrics__humidity glassmorphism">
+      <div tabIndex={0} className="metrics__humidity glassmorphism">
         <h2 className="metrics__h2">Humidity</h2>
         <p>{humidity}%</p>
       </div>
-      <div className="metrics__pressure glassmorphism">
+      <div
+        tabIndex={0}
+        onClick={() =>
+          handleClick(
+            pressureUnits,
+            setPressureUnitIndex,
+            pressureUnitIndex,
+            "pressureUnit",
+          )
+        }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleClick(
+              pressureUnits,
+              setPressureUnitIndex,
+              pressureUnitIndex,
+              "pressureUnit",
+            );
+          }
+        }}
+        className="metrics__pressure glassmorphism"
+      >
         <h2 className="metrics__h2">Pressure</h2>
-        <p>{pressure} hPa</p>
+        <p>{pressureUnits[pressureUnitIndex](pressure)}</p>
       </div>
-      <div className="metrics__visibility glassmorphism">
+      <div tabIndex={0} className="metrics__visibility glassmorphism">
         <h2 className="metrics__h2">Visibility</h2>
         <p>{visibility} m</p>
       </div>
-      <div className="metrics__sunset glassmorphism">
+      <div tabIndex={0} className="metrics__sunset glassmorphism">
         <h2 className="metrics__h2">Sunset</h2>
-        <p>{sunset}</p>
+        <p>{UTCToLocal(sunset)}</p>
       </div>
-      <div className="metrics__feels-like glassmorphism">
+      <div
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleUnitChangeClick();
+          }
+        }}
+        onClick={handleUnitChangeClick}
+        className="metrics__feels-like glassmorphism"
+      >
         <h2 className="metrics__h2">Feels like</h2>
-        <p>{feelsLike}°</p>
+        <p>{feelsLike}</p>
       </div>
-      <div className="metrics__wind glassmorphism">
-        <h2 className="metrics__h2">{windDir}</h2>
-        <p>{windSpeed} m/s</p>
+      <div
+        tabIndex={0}
+        onClick={() =>
+          handleClick(
+            speedUnits,
+            setSpeedUnitIndex,
+            speedUnitIndex,
+            "speedUnit",
+          )
+        }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleClick(
+              speedUnits,
+              setSpeedUnitIndex,
+              speedUnitIndex,
+              "speedUnit",
+            );
+          }
+        }}
+        className="metrics__wind glassmorphism"
+      >
+        <h2 className="metrics__h2">{windDirection(windDir)}</h2>
+        <p>{speedUnits[speedUnitIndex](windSpeed)}</p>
       </div>
     </section>
   );
