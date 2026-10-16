@@ -33,7 +33,7 @@ export default function Search({ setWeather }) {
     const key = import.meta.env.VITE_OPENWEATHER_KEY;
     try {
       const res = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${key}`,
+        `https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${key}`,
       );
       if (!res) {
         throw new Error("Could not fetch location data");
