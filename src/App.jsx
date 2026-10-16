@@ -5,10 +5,11 @@ import WeatherImage from "./components/WeatherImage";
 import UpdatingStatus from "./components/UpdatingStatus";
 import Footer from "./components/Footer";
 import { temperatureUnits, handleStoredUnits } from "./units";
+import Search from "./components/Search/Search";
 
 export default function App() {
   const [weather, setWeather] = useState(
-    JSON.parse(localStorage.getItem("weather-data")),
+    JSON.parse(localStorage.getItem("current-location-data")),
   );
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState({ state: false, message: "" });
@@ -51,7 +52,7 @@ export default function App() {
         throw new Error("Could not fetch weatherData");
       }
       const data = await response.json();
-      localStorage.setItem("weather-data", JSON.stringify(data));
+      localStorage.setItem("current-location-data", JSON.stringify(data));
       setWeather(data);
     } catch (error) {
       console.error("Network Error", error.message);
@@ -95,6 +96,7 @@ export default function App() {
 
   return (
     <>
+      <Search setWeather={setWeather} />
       <WeatherImage weatherId={weather?.weather[0].id} />
       <main className="main">
         <h2 className="main__city-h1">{weather?.name}</h2>

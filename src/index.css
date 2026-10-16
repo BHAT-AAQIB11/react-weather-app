@@ -30,6 +30,7 @@ img {
 
 svg {
   display: block;
+  width: 100%;
 }
 
 .main {
@@ -163,7 +164,7 @@ svg {
   margin: 0 auto 2rem;
   text-align: center;
   font-size: 2rem;
-  font-weight: 250;
+  font-weight: 300;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: white;
 }
@@ -343,7 +344,6 @@ svg {
   }
   .main__weather-metrics {
     padding: 3px;
-    height: 100%;
     grid-auto-rows: max-content;
     overflow-y: scroll;
     -webkit-scrollbar {
@@ -360,5 +360,34 @@ svg {
   }
   .footer {
     max-width: 170px;
+  }
+}
+
+@media screen and (min-width: 1640px) {
+  .weather__temp-p {
+    font-size: 6rem;
+  }
+  .main__weather {
+    font-size: 3rem;
+    flex-grow: 1;
+  }
+
+  .main__weather-metrics {
+    grid-template-columns: repeat(3, minmax(230px, 280px));
+    grid-auto-rows: auto;
+    gap: 20px;
+    align-self: flex-start;
+  }
+  .metrics__h2 {
+    font-size: 2.1rem;
+  }
+  .main__weather-metrics div {
+    font-size: 1.8rem;
+  }
+  .footer {
+    max-width: 250px;
+  }
+  .nav__ul li {
+    width: 4rem;
   }
 }

@@ -1,0 +1,139 @@
+.search-container {
+  top: 10px;
+  left: 50%;
+  translate: -50%;
+  position: absolute;
+  margin: 0 auto;
+  max-width: 500px;
+  display: none;
+  width: 100%;
+  z-index: 1;
+}
+
+.searchInput {
+  border-radius: 20px;
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid;
+  height: 2.5rem;
+  padding: 0 0.7em;
+  max-height: 50px;
+  font: inherit;
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 149, 255, 0.2),
+    rgba(255, 0, 0, 0.2)
+  );
+  color: whitesmoke;
+  filter: contrast(120%);
+  backdrop-filter: blur(10px);
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
+.searchInput::-webkit-search-cancel-button {
+  filter: brightness(1000%);
+}
+
+.search-list {
+  width: calc(80%);
+  margin: 0 auto;
+  list-style: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 1px solid;
+  border-top: none;
+  min-height: 40px;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}
+
+.noResult-p {
+  text-align: center;
+}
+
+.search-item {
+  border-bottom: 1px solid white;
+  border-radius: 10px;
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 149, 255, 0.2),
+    rgba(255, 0, 0, 0.2)
+  );
+  color: whitesmoke;
+  backdrop-filter: blur(10px);
+  filter: drop-shadow(0 0 5px rgb(43, 42, 42));
+}
+
+.search-item button {
+  height: 100%;
+  width: 100%;
+  background: inherit;
+  color: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em;
+  text-align: left;
+  backdrop-filter: inherit;
+}
+
+.search-item button:hover {
+  cursor: pointer;
+}
+
+.search-item button:focus-within {
+  outline: 2px solid;
+}
+
+.search-item:hover {
+  position: relative;
+  z-index: 1;
+  transform-origin: top;
+  transform: scale(1.02, 1.1);
+  filter: drop-shadow(0 0 5px black);
+}
+
+.searchButton {
+  width: 3rem;
+  aspect-ratio: 1;
+  max-width: 50px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  padding: 0.8em;
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 149, 255, 0.5),
+    rgba(255, 0, 0, 0.5)
+  );
+  filter: contrast(120%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 32px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.searchButton:hover {
+  cursor: pointer;
+}
+
+.searchButton:focus {
+  outline: 2px solid white;
+}
+
+.search-icon {
+  width: 90%;
+}
