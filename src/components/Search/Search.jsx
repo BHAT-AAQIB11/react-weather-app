@@ -3,8 +3,9 @@ import { flushSync } from "react-dom";
 import "./search.css";
 import SearchItem from "./SearchItem";
 import useDebounce from "../../hooks/useDebounce.js";
+import SearchCurrentLocation from "./SearchCurrentLocation";
 
-export default function Search({ setWeather }) {
+export default function Search({ setWeather, findPosition, setUpdating }) {
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState([]);
@@ -20,10 +21,11 @@ export default function Search({ setWeather }) {
   const searchListMap = searchList.map(
     ({ name, state, country, lon, lat }, index) => (
       <SearchItem
+        setUpdating={setUpdating}
         setShowSearch={setShowSearch}
         setWeather={setWeather}
         setSearchText={setSearchText}
-        key={`${lat}-${lon}-${index}`}
+        key={`${lat}-${lon}-${name}`}
         {...{ name, state, country, lat, lon }}
       />
     ),
@@ -88,6 +90,13 @@ export default function Search({ setWeather }) {
         />
         {
           <ul className="search-list" style={searchListStyles()}>
+            <SearchCurrentLocation
+              setUpdating={setUpdating}
+              findPosition={findPosition}
+              setShowSearch={setShowSearch}
+              setSearchText={setSearchText}
+              key={`currentLocation`}
+            />
             {searchText ? (
               showList && searchListMap.length ? (
                 searchListMap

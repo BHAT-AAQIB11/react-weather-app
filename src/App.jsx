@@ -96,7 +96,7 @@ export default function App() {
 
   return (
     <>
-      <Search setWeather={setWeather} />
+      <Search setUpdating={setUpdating} findPosition={findPosition} setWeather={setWeather} />
       <WeatherImage weatherId={weather?.weather[0].id} />
       <main className="main">
         <h2 className="main__city-h1">{weather?.name}</h2>

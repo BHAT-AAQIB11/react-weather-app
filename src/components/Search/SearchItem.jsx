@@ -9,6 +9,7 @@ export default function SearchItem({
   setWeather,
   setSearchText,
   setShowSearch,
+  setUpdating,
 }) {
   const [clicked, setClicked] = useState(false);
   function handleClick() {
@@ -28,12 +29,15 @@ export default function SearchItem({
       setWeather({ ...data, name: name });
     } catch (error) {
       console.error("Network Error", error.message);
+    } finally {
+      setUpdating(false);
     }
   }
 
   /* https://api.openweathermap.org/data/2.5/weather?q=${name},${country}&appid=${key} */
   useEffect(() => {
     if (clicked) {
+      setUpdating(true);
       let position = { coords: { latitude: lat, longitude: lon } };
       findSearch(position.coords);
       setShowSearch(false);
