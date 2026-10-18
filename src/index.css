@@ -316,10 +316,7 @@ svg {
   }
 }
 
-@media screen and (min-width: 700px) {
-  body {
-    overflow: hidden;
-  }
+@media screen and (min-width: 700px) and (orientation: landscape) {
   .main {
     height: 80vh;
     padding-top: 2rem;
