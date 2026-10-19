@@ -204,7 +204,7 @@ svg {
   padding-bottom: 2rem;
   width: fit-content;
   display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 220px));
+  grid-template-columns: repeat(2, minmax(120px, 170px));
   justify-content: center;
   align-content: safe center;
   justify-items: center;
@@ -314,6 +314,12 @@ svg {
   100% {
     translate: -20% 0;
     scale: 1 1;
+  }
+}
+
+@media screen and (min-width: 480px) and (orientation: portrait) {
+  .main__weather-metrics {
+    grid-template-columns: repeat(2, minmax(120px, 200px));
   }
 }
 
