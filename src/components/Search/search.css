@@ -17,7 +17,7 @@
   margin: 0 auto;
   border: 1px solid;
   height: 2.5rem;
-  padding: 0 0.7em;
+  padding: 0.1em 0.7em;
   max-height: 50px;
   font: inherit;
   background: linear-gradient(
@@ -137,4 +137,24 @@
 
 .search-icon {
   width: 90%;
+}
+
+
+@media screen and (min-width: 700px) {
+  .search-container {
+    max-width: 700px;
+  }
+  .searchInput {
+    font-size: 1.2rem;
+  }
+  .search-item button {
+    font: inherit;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .search-container {
+    max-width: 900px;
+    font-size: 1.3rem;
+  }
 }
