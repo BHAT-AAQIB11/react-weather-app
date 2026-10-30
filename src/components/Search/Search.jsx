@@ -110,7 +110,7 @@ export default function Search({ setWeather, findPosition, setUpdating }) {
         }
       </div>
       {!showSearch && (
-        <button onClick={handleClick} className="searchButton" type="button">
+        <button onClick={handleClick} className="searchButton glassmorphism" type="button">
           <svg
             className="search-icon"
             fill="currentColor"

@@ -11,8 +11,8 @@ export default function WeatherImage({ weatherId }) {
     setUiChnages(weatherImageMap[weatherId]);
   }
   useEffect(() => {
-    findUidata();
-    document.body.style.backgroundImage = uiChanges[1]?.background;
+    /* findUidata();
+    document.body.style.backgroundImage = uiChanges[1]?.background; */
     prevScrollY.current = window.scrollY;
 
     const handleScroll = () => {
@@ -51,7 +51,7 @@ export default function WeatherImage({ weatherId }) {
           speed={uiChanges[2]?.radius}
         />
       )}
-      <div
+      {/* <div
         className="main__weather-img-container"
         style={{ translate: isScrollingDown ? "0 -50%" : "0" }}
       >
@@ -75,7 +75,7 @@ export default function WeatherImage({ weatherId }) {
           src={uiChanges[0]}
           alt=""
         />
-      </div>
+      </div> */}
     </>
   );
 }
