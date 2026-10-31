@@ -82,9 +82,9 @@ svg {
     inset 0 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
-.glassmorphism:focus,
-.glassmorphism:focus::after,
-.glassmorphism:focus::before {
+.glassmorphism:focus-within,
+.glassmorphism:focus-within::after,
+.glassmorphism:focus-within::before {
   background: var(--TEXT-COLOR);
   color: var(--BG-COLOR);
 }
@@ -261,7 +261,14 @@ svg {
 
 .footer:hover {
   opacity: 1;
-  filter: brightness(130%);
+}
+
+.footer:focus-within {
+  box-shadow:
+    0 8px 32px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(0, 0, 0, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
 .footer__nav {
@@ -293,17 +300,17 @@ svg {
 }
 
 .nav__ul li a:focus {
-  outline: 2px solid white;
+  outline: 2px solid var(--BG-COLOR);
 }
 
 :has(.nav__ul li a:focus) .footer {
   opacity: 1;
-  filter: grayscale(0);
 }
 
 :has(.nav__ul li a:focus) .nav__logo {
   color: white;
 }
+
 :has(.nav__ul li a:focus) .nav__ul li {
   background-color: black;
 }

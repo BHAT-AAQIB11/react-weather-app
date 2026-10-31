@@ -4,7 +4,7 @@ export default function SearchCurrentLocation({
   findPosition,
   setSearchText,
   setShowSearch,
-  setUpdating
+  setUpdating,
 }) {
   const [clicked, setClicked] = useState(false);
   function handleClick() {
@@ -23,10 +23,10 @@ export default function SearchCurrentLocation({
     }
   }, [clicked]);
   return (
-    <li className="search-item">
+    <li className="search-item glassmorphism">
       <button onClick={handleClick}>
         <h3>Current Loaction</h3>
-    </button>
+      </button>
     </li>
   );
 }

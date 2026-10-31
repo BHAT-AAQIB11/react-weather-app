@@ -28,6 +28,8 @@
   color: whitesmoke;
   filter: contrast(120%);
   backdrop-filter: blur(10px); */
+  background: var(--TEXT-COLOR);
+  color: var(--BG-COLOR);
 }
 
 .searchInput:focus {
@@ -50,6 +52,7 @@
   text-align: center;
   display: grid;
   align-items: center;
+  background: var(--BG-COLOR);
 }
 
 .noSearch-p {
@@ -109,7 +112,7 @@
   top: 15px;
   right: 10px;
   padding: 0.8em;
- /*  background: linear-gradient(
+  /*  background: linear-gradient(
     -45deg,
     rgba(0, 149, 255, 0.5),
     rgba(255, 0, 0, 0.5)
@@ -136,7 +139,6 @@
 .search-icon {
   width: 100%;
 }
-
 
 @media screen and (min-width: 700px) {
   .search-container {

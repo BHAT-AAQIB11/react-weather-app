@@ -1,9 +1,7 @@
 export default function Footer() {
   return (
-    <footer
-      className="footer"
-    >
-      <nav className="footer__nav glassmorphism">
+    <footer className="footer glassmorphism">
+      <nav className="footer__nav ">
         <ul className="nav__ul">
           <li className="nav__li">
             <a href="https://www.linkedin.com/in/bhat-aaqib11" target="_blank">

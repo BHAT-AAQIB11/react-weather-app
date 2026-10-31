@@ -45,7 +45,7 @@ export default function SearchItem({
     }
   }, [clicked]);
   return (
-    <li className="search-item">
+    <li className="search-item glassmorphism">
       <button onClick={handleClick}>
         <h3>{name}</h3>
         <p>

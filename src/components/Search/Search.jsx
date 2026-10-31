@@ -49,19 +49,6 @@ export default function Search({ setWeather, findPosition, setUpdating }) {
 
   const showList = debouncedText.length > 2;
 
-  const searchListStyles = () => {
-    if (!showList || !searchList.length) {
-      return {
-        background:
-          "linear-gradient(45deg, rgba(0, 149, 255, 0.5),rgba(255, 0, 0, 0.5))",
-        color: "whitesmoke",
-        backdropFilter: "blur(5px)",
-      };
-    } else {
-      return null;
-    }
-  };
-
   useEffect(() => {
     if (showList) {
       findSearchResults(debouncedText);
@@ -89,7 +76,7 @@ export default function Search({ setWeather, findPosition, setUpdating }) {
           onChange={(e) => setSearchText(e.target.value)}
         />
         {
-          <ul className="search-list" style={searchListStyles()}>
+          <ul className="search-list">
             <SearchCurrentLocation
               setUpdating={setUpdating}
               findPosition={findPosition}
@@ -110,7 +97,11 @@ export default function Search({ setWeather, findPosition, setUpdating }) {
         }
       </div>
       {!showSearch && (
-        <button onClick={handleClick} className="searchButton glassmorphism" type="button">
+        <button
+          onClick={handleClick}
+          className="searchButton glassmorphism"
+          type="button"
+        >
           <svg
             className="search-icon"
             fill="currentColor"
