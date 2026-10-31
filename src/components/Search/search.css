@@ -92,7 +92,7 @@
   outline: 2px solid;
 }
 
-.search-item:hover {
+.search-item:hover, .search-item:focus-within {
   position: relative;
   z-index: 1;
   transform-origin: top;

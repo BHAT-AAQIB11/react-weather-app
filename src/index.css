@@ -120,7 +120,7 @@ svg {
 }
 
 .error-screen {
-  background: linear-gradient(180deg, hsl(190, 100%, 30%), hsl(290, 20%, 70%));
+  background: var(--BG-COLOR);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -139,7 +139,6 @@ svg {
 
 .error__reload {
   padding: 0.5em 1em;
-  color: white;
   font: inherit;
   font-weight: 300;
   border: 0.5px solid;
@@ -148,7 +147,7 @@ svg {
 }
 
 .loading-screen {
-  background: linear-gradient(180deg, hsl(190, 100%, 30%), hsl(290, 20%, 70%));
+  background: var(--BG-COLOR);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -289,7 +288,7 @@ svg {
 }
 
 .nav__ul li:hover {
-  background-color: black;
+  background-color: var(--BG-COLOR);
 }
 
 .nav__ul li a {
@@ -300,7 +299,7 @@ svg {
 }
 
 .nav__ul li a:focus {
-  outline: 2px solid var(--BG-COLOR);
+  outline: 2px solid black;
 }
 
 :has(.nav__ul li a:focus) .footer {
@@ -308,22 +307,22 @@ svg {
 }
 
 :has(.nav__ul li a:focus) .nav__logo {
-  color: white;
+  color: var(--TEXT-COLOR);
 }
 
 :has(.nav__ul li a:focus) .nav__ul li {
-  background-color: black;
+  background-color: var(--BG-COLOR);
 }
 
 .nav__logo {
   width: 65%;
-  color: black;
+  color: var(--BG-COLOR);
   margin: 0 auto;
   align-self: center;
 }
 
 :is(.nav__ul li:hover) .nav__logo {
-  color: white;
+  color: var(--TEXT-COLOR);
 }
 
 @keyframes animeOnScroll {
@@ -424,4 +423,34 @@ svg {
   .nav__ul li {
     width: 4rem;
   }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --BG-COLOR: rgb(227, 227, 227);
+    --TEXT-COLOR: rgb(10, 10, 10);
+  }
+
+  .glassmorphism {
+    background: var(--TEXT-COLOR);
+    color: var(--BG-COLOR);
+  }
+
+  .glassmorphism:hover,
+  .glassmorphism:focus-within,
+  .glassmorphism:hover::after,
+  .glassmorphism:focus-within:before {
+    background: var(--BG-COLOR);
+    color: var(--TEXT-COLOR);
+  }
+
+  .footer:focus-within,
+  .footer:hover {
+    background: var(--TEXT-COLOR);
+  }
+  .nav__ul li a:focus {
+    outline: 2px solid var(--BG-COLOR);
+  }
+
+  
 }
