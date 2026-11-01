@@ -5,7 +5,11 @@
   --TEXT-COLOR: whitesmoke;
   --BG-COLOR: rgb(10, 10, 10);
   --GLASSMORPHISM-BEFORE-HEIGHT: 1px;
-  --OUTLINE-COLOR: dodgerblue;
+}
+
+:root.light {
+  --BG-COLOR: rgb(227, 227, 227);
+  --TEXT-COLOR: rgb(10, 10, 10);
 }
 
 *,
@@ -59,8 +63,8 @@ svg {
     rgba(255, 255, 255, 0.1),
     rgba(255, 255, 255, 0.1)
   );
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   position: relative;
   overflow: hidden;
@@ -160,6 +164,19 @@ svg {
   font-weight: 300;
   text-align: center;
   letter-spacing: 1px;
+}
+
+.theme-toggle-btn {
+  aspect-ratio: 1;
+  padding: 0.5em;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  border: none;
+  border-radius: 50%;
+  max-width: 40px;
+  background: var(--TEXT-COLOR);
+  color: var(--BG-COLOR);
 }
 
 .main__weather-img-container {
@@ -425,32 +442,23 @@ svg {
   }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --BG-COLOR: rgb(227, 227, 227);
-    --TEXT-COLOR: rgb(10, 10, 10);
-  }
+.light .glassmorphism {
+  background: var(--TEXT-COLOR);
+  color: var(--BG-COLOR);
+}
 
-  .glassmorphism {
-    background: var(--TEXT-COLOR);
-    color: var(--BG-COLOR);
-  }
+.light .glassmorphism:hover,
+.light .glassmorphism:focus-within,
+.light .glassmorphism:hover::after,
+.light .glassmorphism:focus-within:before {
+  background: var(--BG-COLOR);
+  color: var(--TEXT-COLOR);
+}
 
-  .glassmorphism:hover,
-  .glassmorphism:focus-within,
-  .glassmorphism:hover::after,
-  .glassmorphism:focus-within:before {
-    background: var(--BG-COLOR);
-    color: var(--TEXT-COLOR);
-  }
-
-  .footer:focus-within,
-  .footer:hover {
-    background: var(--TEXT-COLOR);
-  }
-  .nav__ul li a:focus {
-    outline: 2px solid var(--BG-COLOR);
-  }
-
-  
+.light .footer:focus-within,
+.light .footer:hover {
+  background: var(--TEXT-COLOR);
+}
+.light .nav__ul li a:focus {
+  outline: 2px solid var(--BG-COLOR);
 }

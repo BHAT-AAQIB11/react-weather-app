@@ -8,6 +8,7 @@ import { temperatureUnits, handleStoredUnits } from "./units";
 import Search from "./components/Search/Search";
 
 export default function App() {
+  const [theme, setTheme] = useState(() => getTheme());
   const [weather, setWeather] = useState(
     JSON.parse(localStorage.getItem("current-location-data")),
   );
@@ -66,6 +67,28 @@ export default function App() {
     window.location.reload();
   }
 
+  function getTheme() {
+    if (typeof window !== "undefined") {
+      return (
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light")
+      );
+    }
+    return "light";
+  }
+
+  function toggleTheme() {
+    const next = theme === "light" ? "dark" : "light";
+    localStorage.setItem("theme", next);
+    setTheme(next);
+  }
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+  }, [theme]);
+
   useEffect(() => {
     setUpdating(true);
     navigator.geolocation.getCurrentPosition(
@@ -96,7 +119,22 @@ export default function App() {
 
   return (
     <>
-      <Search setUpdating={setUpdating} findPosition={findPosition} setWeather={setWeather} />
+      <button onClick={toggleTheme} className="theme-toggle-btn">
+        {theme === "dark" ? (
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V1a1 1 0 0 1 1-1ZM4.929 3.515a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 0 0 1.414-1.414L4.93 3.515ZM1 11a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2H1ZM18 12a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM17.657 16.243a1 1 0 0 0-1.414 1.414l2.828 2.828a1 1 0 1 0 1.414-1.414l-2.828-2.828ZM7.757 17.657a1 1 0 1 0-1.414-1.414L3.515 19.07a1 1 0 1 0 1.414 1.414l2.828-2.828ZM20.485 4.929a1 1 0 0 0-1.414-1.414l-2.828 2.828a1 1 0 1 0 1.414 1.414l2.828-2.828ZM13 19a1 1 0 1 0-2 0v4a1 1 0 1 0 2 0v-4ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"></path>
+          </svg>
+        ) : (
+          <svg viewBox="0 0 32 32" fill="currentColor">
+            <path d="M12.516,4.509A12,12,0,0,0,22.3,19.881,12.317,12.317,0,0,0,24,20a11.984,11.984,0,0,0,3.49-.514,12.1,12.1,0,0,1-9.963,8.421A12.679,12.679,0,0,1,16,28,12,12,0,0,1,12.516,4.509M16,0a16.5,16.5,0,0,0-2.212.15A16,16,0,0,0,16,32a16.526,16.526,0,0,0,2.01-.123A16.04,16.04,0,0,0,31.85,18.212,16.516,16.516,0,0,0,32,15.944,1.957,1.957,0,0,0,30,14a2.046,2.046,0,0,0-1.23.413A7.942,7.942,0,0,1,24,16a8.35,8.35,0,0,1-1.15-.08,7.995,7.995,0,0,1-5.264-12.7A2.064,2.064,0,0,0,16.056,0Z"></path>{" "}
+          </svg>
+        )}
+      </button>
+      <Search
+        setUpdating={setUpdating}
+        findPosition={findPosition}
+        setWeather={setWeather}
+      />
       <WeatherImage weatherId={weather?.weather[0].id} />
       <main className="main">
         <h2 className="main__city-h1">{weather?.name}</h2>
