@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import MainWeather from "./components/MainWeather";
 import WeatherMetrics from "./components/WeatherMetrics";
-import WeatherImage from "./components/WeatherImage";
 import UpdatingStatus from "./components/UpdatingStatus";
 import Footer from "./components/Footer";
 import { temperatureUnits, handleStoredUnits } from "./units";
@@ -135,7 +134,7 @@ export default function App() {
         findPosition={findPosition}
         setWeather={setWeather}
       />
-      <WeatherImage weatherId={weather?.weather[0].id} />
+      
       <main className="main">
         <h2 className="main__city-h1">{weather?.name}</h2>
         <div className="weather-container">
