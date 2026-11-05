@@ -181,8 +181,9 @@ svg {
 
 .theme-toggle-btn:focus-visible {
   outline: none;
-  box-shadow:  0 0 0 2px var(--BG-COLOR),
-  0 0 0 4px var(--TEXT-COLOR)
+  box-shadow:
+    0 0 0 2px var(--BG-COLOR),
+    0 0 0 4px var(--TEXT-COLOR);
 }
 
 .main__city-h1 {
@@ -203,11 +204,23 @@ svg {
   margin: 0 auto 1.5rem;
   padding: 1.5em 1em;
   max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .weather__temp-p {
   font-size: 2.4rem;
   font-weight: 200;
+}
+
+.weather__icon {
+  position: absolute;
+  width: 18%;
+  right: 0;
+  top: 1em;
+  background: transparent;
+  filter: drop-shadow(0 0 5px black);
 }
 
 .update-message {
@@ -327,7 +340,6 @@ svg {
 :is(.nav__ul li:hover) .nav__logo {
   color: var(--TEXT-COLOR);
 }
-
 
 @media screen and (min-width: 480px) and (orientation: portrait) {
   .main__weather-metrics {

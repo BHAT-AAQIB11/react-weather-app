@@ -5,12 +5,14 @@ export default function MainWeather({
   maxTemp,
   handleUnitChangeClick,
   children,
+  weatherIcon,
 }) {
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       handleUnitChangeClick();
     }
   }
+
   return (
     <section
       tabIndex={0}
@@ -19,10 +21,14 @@ export default function MainWeather({
       className="main__weather glassmorphism"
     >
       <p className="weather__temp-p">{mainTemp}</p>
+      <img
+        className="weather__icon"
+        src={`https://openweathermap.org/payload/api/media/file/${weatherIcon}.png`}
+      />
       {children}
       <p className="weather__description-p">{mainWeather}</p>
       <p className="weather__minmax-temp-p">
-        {minTemp.slice(0,-1)}/{maxTemp.slice(0,-1)}
+        {minTemp.slice(0, -1)}/{maxTemp.slice(0, -1)}
       </p>
     </section>
   );

@@ -144,6 +144,7 @@ export default function App() {
             mainWeather={weather?.weather[0].description}
             minTemp={temperatureUnits[tempUnitIndex](weather?.main.temp_min)}
             maxTemp={temperatureUnits[tempUnitIndex](weather?.main.temp_max)}
+            weatherIcon={weather?.weather[0].icon}
           >
             <UpdatingStatus updating={updating} />
           </MainWeather>
