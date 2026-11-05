@@ -179,6 +179,12 @@ svg {
   color: var(--BG-COLOR);
 }
 
+.theme-toggle-btn:focus-visible {
+  outline: none;
+  box-shadow:  0 0 0 2px var(--BG-COLOR),
+  0 0 0 4px var(--TEXT-COLOR)
+}
+
 .main__city-h1 {
   width: fit-content;
   margin: 0 auto 2rem;
