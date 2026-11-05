@@ -132,10 +132,6 @@
   cursor: pointer;
 }
 
-.searchButton:focus {
-  outline: 2px solid white;
-}
-
 .search-icon {
   width: 100%;
 }
