@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function SearchItem({
   name,
@@ -15,6 +16,7 @@ export default function SearchItem({
   function handleClick() {
     setClicked(true);
   }
+  const navigate = useNavigate();
 
   async function findSearch(position) {
     const key = import.meta.env.VITE_OPENWEATHER_KEY;
@@ -27,6 +29,9 @@ export default function SearchItem({
       }
       const data = await res.json();
       setWeather({ ...data, name: name });
+      if (data && data.name) {
+        navigate(`/${encodeURIComponent(name)}`, { replace: true });
+      }
     } catch (error) {
       console.error("Network Error", error.message);
     } finally {

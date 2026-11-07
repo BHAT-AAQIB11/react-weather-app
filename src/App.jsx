@@ -5,8 +5,10 @@ import UpdatingStatus from "./components/UpdatingStatus";
 import Footer from "./components/Footer";
 import { temperatureUnits, handleStoredUnits } from "./units";
 import Search from "./components/Search/Search";
+import { useNavigate } from "react-router";
 
 export default function App() {
+  const navigate = useNavigate();
   const [theme, setTheme] = useState(() => getTheme());
   const [weather, setWeather] = useState(
     JSON.parse(localStorage.getItem("current-location-data")),
@@ -54,6 +56,9 @@ export default function App() {
       const data = await response.json();
       localStorage.setItem("current-location-data", JSON.stringify(data));
       setWeather(data);
+      if (data && data.name) {
+        navigate(`/${encodeURIComponent(data.name)}`, { replace: true });
+      }
     } catch (error) {
       console.error("Network Error", error.message);
       setError({ state: true, message: "Network Error" });
@@ -134,7 +139,7 @@ export default function App() {
         findPosition={findPosition}
         setWeather={setWeather}
       />
-      
+
       <main className="main">
         <h2 className="main__city-h1">{weather?.name}</h2>
         <div className="weather-container">

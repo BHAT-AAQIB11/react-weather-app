@@ -1,21 +1,19 @@
 import { useState, useRef, useEffect } from "react";
-import { flushSync } from "react-dom";
 import "./search.css";
 import SearchItem from "./SearchItem";
 import useDebounce from "../../hooks/useDebounce.js";
 import SearchCurrentLocation from "./SearchCurrentLocation";
-
+import { useSearchParams } from "react-router";
 export default function Search({ setWeather, findPosition, setUpdating }) {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search");
   const [showSearch, setShowSearch] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(searchQuery ? searchQuery : "");
   const [searchList, setSearchList] = useState([]);
   const searchRef = useRef(null);
   const debouncedText = useDebounce(searchText, 1000);
   function handleClick() {
-    flushSync(() => {
-      setShowSearch(true);
-    });
-    searchRef.current.focus();
+    setShowSearch(true);
   }
 
   const searchListMap = searchList.map(
@@ -48,6 +46,20 @@ export default function Search({ setWeather, findPosition, setUpdating }) {
   }
 
   const showList = debouncedText.length > 2;
+
+  useEffect(() => {
+    if (!searchQuery) return;
+
+    setShowSearch(true);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (showSearch) {
+      if (searchRef.current) {
+        searchRef.current.focus();
+      }
+    }
+  });
 
   useEffect(() => {
     if (showList) {
